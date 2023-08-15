@@ -3,7 +3,7 @@
 
 ## 📚 Sobre o projeto
 
-O projeto tem como objetivo criar uma Web API para a gestão de notícias de um portl de comunicação, gravando as informações em uma base de dados SQL Server.
+O projeto tem como objetivo criar uma Web API para a gestão de notícias de um portal de comunicação, gravando as informações em uma base de dados SQL Server.
 O projeto está sendo desenvolvido em grupo, com o objetivo de compartilhar conhecimentos e experiências e atender os requisitos avaliativos do Tech Challenge FIAP do curso postech ARQUITETURA DE SISTEMAS .NET COM AZURE na fase 2.
 
 ## 📝 Conteúdo
