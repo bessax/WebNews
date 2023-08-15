@@ -26,7 +26,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
                 Encoding.UTF8.GetBytes(builder.Configuration["JWTKey:key"]!)),
     });
 
-builder.Services.ConfigureDI();
+builder.Services.ConfigureDI(builder.Configuration);
 
 builder.Services.AddScoped<IValidator<UserDTO>, UserDTOValidator>();
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebNews.Application.AppService;
 using WebNews.Application.Interface;
@@ -14,21 +15,29 @@ namespace WebNews.IoC;
 
 public static class WebNewsRegisterDependencies
 {
-    public static void ConfigureDI(this IServiceCollection services)
+    private static IConfiguration _configuration;
+    public static void ConfigureDI(this IServiceCollection services, IConfiguration configuration)
     {
+       
         AddAutoMapper(services);        
         AddDbContext(services);
         AddIdentity(services);
         AddInfraEstructureDependencies(services);
         AddServicesDependencies(services);
-        AddApplicationDependencies(services);     
+        AddApplicationDependencies(services);
+        Configuration(configuration);
+    }
+
+    private static void Configuration(IConfiguration configuration)
+    {
+        _configuration = configuration;
     }
 
     private static void AddIdentity(IServiceCollection services)
     {
         services.AddDbContext<IdentityContext>(options =>
         {
-            options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=NewsDBIdentity;Integrated Security=SSPI;Persist Security Info=False;");
+            options.UseSqlServer(GetConnectionStringIdentity(_configuration));
         });
         services.AddIdentity<IdentityUser, IdentityRole>()
         .AddEntityFrameworkStores<IdentityContext>()
@@ -39,9 +48,28 @@ public static class WebNewsRegisterDependencies
     {
         services.AddDbContext<NewsDbContext>(options =>
         {
-            options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=NewsDB;Integrated Security=SSPI;Persist Security Info=False;");
+            options.UseSqlServer(GetConnectionStringNews(_configuration));
         });
         services.AddScoped<NewsDbContext>();
+    }
+
+    private static string GetConnectionStringNews(IConfiguration configuration)
+    {
+        if (!bool.Parse(configuration["FeatureFlags:enable_connection_local_db"]!))
+        {
+            return configuration["ConnectionStrings:newsDB_remote"]!;
+        }
+        return configuration["ConnectionStrings:newsDB_local"]!;
+    }
+
+    private static string GetConnectionStringIdentity(IConfiguration configuration)
+    {
+
+        if (!bool.Parse(configuration["FeatureFlags:enable_connection_local_db"]!))
+        {
+            return configuration["ConnectionStrings:newsDB_remote_identity"]!;
+        }
+        return configuration["ConnectionStrings:newsDB_local_identity"]!;
     }
 
     private static void AddInfraEstructureDependencies(IServiceCollection services)
@@ -63,4 +91,5 @@ public static class WebNewsRegisterDependencies
     {
         services.AddScoped<INewsAppService, NewsAppService>();
     }
+
 }
