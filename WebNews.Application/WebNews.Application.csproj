@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebNews.Domain\WebNews.Domain.csproj" />
+    <ProjectReference Include="..\WebNews.Service\WebNews.Service.csproj" />
+  </ItemGroup>
+
+</Project>
