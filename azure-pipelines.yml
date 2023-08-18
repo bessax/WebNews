@@ -33,7 +33,10 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-
+    projects: '**/WebNews.API.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
+    
 
 - task: PublishBuildArtifacts@1
   inputs:
