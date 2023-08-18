@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/WebNews.API/*.csproj'
+  solution: 'WebNews.API/*.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
