@@ -1,0 +1,11 @@
+dotnet ef --project ../WebNews.Infrastructure.csproj migrations add MigracaoInicial --context WebNews.Infrastructure.NewsContext.NewsDbContext --output-dir ./NewsContext/Migrations
+
+dotnet ef --project ../WebNews.Infrastructure.csproj migrations add Identity --context WebNews.Infrastructure.IdentityContext.IdentityContext --output-dir ./IdentityContext/Migrations
+
+dotnet ef --project ../WebNews.Infrastructure.csproj database update
+
+dotnet ef --project ../WebNews.Infrastructure.csproj database update --context WebNews.Infrastructure.IdentityContext.IdentityContext
+
+---Web App
+
+Nome: app-news
