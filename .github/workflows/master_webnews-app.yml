@@ -11,27 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: 'ubuntu-latest'
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
-    - name: Log in to registry
-      uses: docker/login-action@v2
-      with:
-        registry: https://webnewsapp.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_a4a2178f22224fc6b305f1d57242a75c }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_9568025024ae42e7b64a2a79844cbce6 }}
-
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: webnewsapp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_a4a2178f22224fc6b305f1d57242a75c }}/webnews-api:${{ github.sha }}
-        file: ./Dockerfile
+    runs-on: 'ubuntu-latest' 
 
   deploy:
     runs-on: ubuntu-latest
