@@ -22,6 +22,7 @@ public class NewsController : ControllerBase
     {
         var retorno = await this.newsappservice.AddNewsAsync(dto);
         return this.Ok(retorno);
+
     }
 
     [HttpGet("{id}")]
