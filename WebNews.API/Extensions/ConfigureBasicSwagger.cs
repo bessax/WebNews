@@ -12,7 +12,7 @@ public static class ConfigureBasicSwagger
         services.AddSwaggerGen(
                     swagger =>
                     {
-                        swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "Tech Challenge - Grupo 31 [Fase 2: API WebNews]", Version = "v2" });
+                        swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "Tech Challenge - Grupo 31 [Fase 2: API WebNews]", Version = "v1" });
                         swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                         {
                             Name = "Authorization",
