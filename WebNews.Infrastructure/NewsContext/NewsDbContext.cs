@@ -6,7 +6,6 @@ using WebNews.Domain.Entities;
 namespace WebNews.Infrastructure.NewsContext;
 public class NewsDbContext:DbContext
 {
-
     public NewsDbContext(DbContextOptions<NewsDbContext> options)
         : base(options)
     {

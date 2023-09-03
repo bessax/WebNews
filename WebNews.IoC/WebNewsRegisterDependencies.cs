@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebNews.Application.AppService;
 using WebNews.Application.Interface;
+using WebNews.Infrastructure;
 using WebNews.Infrastructure.IdentityContext;
 using WebNews.Infrastructure.NewsContext;
 using WebNews.Infrastructure.Repositories;
@@ -17,15 +18,14 @@ public static class WebNewsRegisterDependencies
 {
     private static IConfiguration _configuration;
     public static void ConfigureDI(this IServiceCollection services, IConfiguration configuration)
-    {
-       
-        AddAutoMapper(services);        
+    {    
+        AddAutoMapper(services);
         AddDbContext(services);
         AddIdentity(services);
         AddInfraEstructureDependencies(services);
         AddServicesDependencies(services);
         AddApplicationDependencies(services);
-        Configuration(configuration);
+        Configuration(configuration);        
     }
 
     private static void Configuration(IConfiguration configuration)
@@ -49,11 +49,12 @@ public static class WebNewsRegisterDependencies
         services.AddDbContext<NewsDbContext>(options =>
         {
             options.UseSqlServer(GetConnectionStringNews(_configuration));
+            
         });
         services.AddScoped<NewsDbContext>();
     }
 
-    private static string GetConnectionStringNews(IConfiguration configuration)
+    public static string GetConnectionStringNews(IConfiguration configuration)
     {
         if (!bool.Parse(configuration["FeatureFlags:enable_connection_local_db"]!))
         {
@@ -62,7 +63,7 @@ public static class WebNewsRegisterDependencies
         return configuration["ConnectionStrings:newsDB_local"]!;
     }
 
-    private static string GetConnectionStringIdentity(IConfiguration configuration)
+    public static string GetConnectionStringIdentity(IConfiguration configuration)
     {
 
         if (!bool.Parse(configuration["FeatureFlags:enable_connection_local_db"]!))
@@ -91,5 +92,4 @@ public static class WebNewsRegisterDependencies
     {
         services.AddScoped<INewsAppService, NewsAppService>();
     }
-
 }
